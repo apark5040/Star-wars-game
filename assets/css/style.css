@@ -1,0 +1,32 @@
+img {
+    width: 150px;
+    height: 150px;
+    border: solid yellow 5px;
+    background-color: yellow;
+    margin: 5px;
+    
+}
+
+.hide {
+    display: none;
+}
+
+.h1 {
+    color: yellow;
+    text-align: center;
+}
+
+.h2 {
+    color: yellowgreen;
+    text-align: center;
+}
+
+.player {
+    border: solid 5px green;
+    background-color: green;
+}
+
+.computer {
+    border: solid 5px red;
+    background-color: red;
+}
