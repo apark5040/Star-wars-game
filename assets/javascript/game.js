@@ -86,5 +86,9 @@ $(".characters").click(function () {
 
 });
 
+$("#attack").click(function(){
+    //Test to see if rest of the charcters can come back after click
+    $("#game").removeClass("hide");
+});
 
 
