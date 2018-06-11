@@ -1,43 +1,49 @@
 var luke = {
-    hp: 500,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Luke.jpg"
+    name : "Luke Skywalker",
+    hp: 150,
+    attack: 5,
+    counterAttack: 8,
+    image: "assets/images/Luke.jpg"
 };
 
 var darthVader = {
-    hp: 100,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Vader.png"
+    name : "Darth Vader",
+    hp: 200,
+    attack: 7,
+    counterAttack: 10,
+    image: "assets/images/Vader.png"
 };
 
 var stormTrooper = {
+    name : "Stormtrooper",
     hp: 100,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Stormtrooper.jpg"
+    attack: 4,
+    counterAttack: 7,
+    image: "assets/images/Stormtrooper.jpg"
 }
 
 var maceWindu = {
-    hp: 100,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Macewindu.jpg"
+    name : "Mace Windu",
+    hp: 150,
+    attack: 6,
+    counterAttack: 8,
+    image: "assets/images/Macewindu.jpg"
 }
 
 var hanSolo = {
+    name :"Han Solo",
     hp: 100,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Hansolo.jpg"
+    attack: 5,
+    counterAttack: 7,
+    image: "assets/images/Hansolo.jpg"
 }
 
 var grievous = {
-    hp: 100,
-    attack: 10,
-    counterAttack: 5,
-    name: "assets/images/Grievous.jpg"
+    name: "General Grievous",
+    hp: 200,
+    attack: 5,
+    counterAttack: 8,
+    image: "assets/images/Grievous.jpg"
 }
 
 var isCharPicked = false;
@@ -46,6 +52,11 @@ var isOpponentPicked = false;
 var downChar;
 var userChar;
 var enemyChar;
+
+var battleAttack;
+
+var statBox;
+var statBox2;
 
 var wins = 0;
 
@@ -57,12 +68,12 @@ function picAdd(name) {
     $("#game").append(pic);
 }
 
-picAdd(luke.name);
-picAdd(darthVader.name);
-// picAdd(stormTrooper.name);
-picAdd(maceWindu.name);
-// picAdd(hanSolo.name);
-picAdd(grievous.name);
+picAdd(luke.image);
+picAdd(darthVader.image);
+// picAdd(stormTrooper.image);
+picAdd(maceWindu.image);
+// picAdd(hanSolo.image);
+picAdd(grievous.image);
 
 
 
@@ -77,25 +88,36 @@ $(".characters").click(function () {
         isCharPicked = true;
         $(this).addClass("hide");
 
-        if ($(this).attr("src") === luke.name) {
+        statBox = $("<div>");
+        statBox.addClass("col-md-4 playerStat");
+        $("#upper").append(statBox);
+
+
+        if ($(this).attr("src") === luke.image) {
             userChar = luke;
         }
-        if ($(this).attr("src") === darthVader.name) {
+        if ($(this).attr("src") === darthVader.image) {
             userChar = darthVader;
         }
-        if ($(this).attr("src") === stormTrooper.name) {
+        if ($(this).attr("src") === stormTrooper.image) {
             userChar = stormTrooper;
         }
-        if ($(this).attr("src") === maceWindu.name) {
+        if ($(this).attr("src") === maceWindu.image) {
             userChar = maceWindu;
         }
-        if ($(this).attr("src") === hanSolo.name) {
+        if ($(this).attr("src") === hanSolo.image) {
             userChar = hanSolo;
         }
-        if ($(this).attr("src") === grievous.name) {
+        if ($(this).attr("src") === grievous.image) {
             userChar = grievous;
         }
-       $("#pickChar").remove();
+
+        battleAttack = userChar.attack;
+
+        statBox.html("<p>"+userChar.name+"</p>"+
+            "<p> HP: " + userChar.hp + "</p>" +
+            "<p> Attack: " + userChar.attack + "</p>");
+        $("#pickChar").remove();
 
     }
     //This happens when you pick your character. This part is for picking your opponent.
@@ -108,25 +130,35 @@ $(".characters").click(function () {
         $("#lower").append(downChar);
         $(this).addClass("hide");
 
-        if ($(this).attr("src") === luke.name) {
+
+        statBox2 = $("<div>");
+        statBox2.addClass("col-md-4 playerStat enemyStat");
+        $("#lower").append(statBox2);
+
+
+        if ($(this).attr("src") === luke.image) {
             enemyChar = luke;
 
         }
-        if ($(this).attr("src") === darthVader.name) {
+        if ($(this).attr("src") === darthVader.image) {
             enemyChar = darthVader;
         }
-        if ($(this).attr("src") === stormTrooper.name) {
+        if ($(this).attr("src") === stormTrooper.image) {
             enemyChar = stormTrooper;
         }
-        if ($(this).attr("src") === maceWindu.name) {
+        if ($(this).attr("src") === maceWindu.image) {
             enemyChar = maceWindu;
         }
-        if ($(this).attr("src") === hanSolo.name) {
+        if ($(this).attr("src") === hanSolo.image) {
             enemyChar = hanSolo;
         }
-        if ($(this).attr("src") === grievous.name) {
+        if ($(this).attr("src") === grievous.image) {
             enemyChar = grievous;
         }
+
+        statBox2.html("<p>"+enemyChar.name+"</p>"+
+            "<p> HP: " + enemyChar.hp + "</p>" +
+            "<p> Attack: " + enemyChar.attack + "</p>");
 
     }
 
@@ -139,19 +171,33 @@ $(".characters").click(function () {
 
 $("#attack").click(function () {
 
+
     if (isCharPicked && isOpponentPicked) {
+          
 
         userChar.hp = userChar.hp - enemyChar.counterAttack;
-        enemyChar.hp = enemyChar.hp - userChar.attack;
+        enemyChar.hp = enemyChar.hp - battleAttack;
 
         var messageLog = $("<div>");
         $("#message").html(messageLog);
         messageLog.attr("id", "log");
         messageLog.attr("class", "battleLog");
-        messageLog.html("<p>You dealt " + userChar.attack + " and brought down your opponents HP to " + enemyChar.hp + "</p>" +
-            "<p>Your opponent dealt " + enemyChar.counterAttack + " and brought your HP down to " + userChar.hp + "</p>");
 
-        userChar.attack = userChar.attack + 5;
+        //////////////////////////////////////////////////////////////////////////////////////////
+        messageLog.html("<p>You dealt " + battleAttack + " to your opponent</p>" +
+            "<p>Your opponent dealt " + enemyChar.counterAttack + " to you</p>");
+
+        statBox.html("<p>"+userChar.name+"</p>"+
+            "<p> HP: " + userChar.hp + "</p>" +
+            "<p> Attack: " + battleAttack + "</p>");
+
+        statBox2.html("<p>"+enemyChar.name+"</p>"+
+            "<p> HP: " + enemyChar.hp + "</p>" +
+            "<p> Attack: " + enemyChar.attack + "</p>");
+
+        //////////////////////////////////////////////////////////////////////////////////////////            
+
+        battleAttack = battleAttack + userChar.attack;
 
         if (enemyChar.hp <= 0) {
             $("#game").removeClass("hide");
@@ -159,20 +205,21 @@ $("#attack").click(function () {
             messageLog.empty();
             isOpponentPicked = false;
             downChar.remove();
+            $(".enemyStat").remove();
             enemyChar;
             wins++;
-            
-            
+
         }
-        if(userChar.hp <= 0){
-            alert("You lose");
+        if (userChar.hp <= 0) {
+            messageLog.attr("class", "battleLog");
+            messageLog.html("<p class='winMessage'>You lose</p>");
         }
-        
+
     }
 
-    if(wins === 3){
+    if (wins === 3) {
         messageLog.attr("class", "battleLog");
-        messageLog.html("<p>You win!</p>");
+        messageLog.html("<p class='winMessage'>You win!</p>");
     }
 
 });

@@ -34,5 +34,16 @@ img {
 .battleLog { 
     margin: 10px;
     border: solid 5px grey;
+    background-color: lightcyan;
+    text-align: center;
+}
+
+.playerStat {
+    margin: 10px;
+    border: solid 5px grey;
     background-color: lightcyan
+}
+
+.winMessage {
+    font-size: 50px;
 }
