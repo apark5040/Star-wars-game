@@ -32,7 +32,7 @@ img {
 }
 
 .battleLog { 
-    margin: 10px;
+    margin: 5px;
     border: solid 5px grey;
     background-color: lightcyan;
     text-align: center;
@@ -46,4 +46,8 @@ img {
 
 .winMessage {
     font-size: 50px;
+}
+
+#button {
+    margin-top: 20px;
 }
