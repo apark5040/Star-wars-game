@@ -30,3 +30,9 @@ img {
     border: solid 5px red;
     background-color: red;
 }
+
+.battleLog { 
+    margin: 10px;
+    border: solid 5px grey;
+    background-color: lightcyan
+}
