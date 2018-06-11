@@ -1,4 +1,5 @@
 ////Variable objects for each character that includes the stats and image path
+//WILL MAKE ADJUSTMENTS TO BALANCE OUT CHARACTERS LATER
 var luke = {
     name : "Luke Skywalker",
     hp: 150,
