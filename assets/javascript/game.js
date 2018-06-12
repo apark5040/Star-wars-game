@@ -1,40 +1,40 @@
 ////Variable objects for each character that includes the stats and image path
 //WILL MAKE ADJUSTMENTS TO BALANCE OUT CHARACTERS LATER
 var luke = {
-    name : "Luke Skywalker",
-    hp: 150,
+    name: "Luke Skywalker",
+    hp: 140,
     attack: 5,
-    counterAttack: 8,
+    counterAttack: 9,
     image: "assets/images/Luke.jpg"
 };
 
 var darthVader = {
-    name : "Darth Vader",
-    hp: 200,
-    attack: 7,
-    counterAttack: 10,
+    name: "Darth Vader",
+    hp: 150,
+    attack: 6,
+    counterAttack: 9,
     image: "assets/images/Vader.png"
 };
 
 var stormTrooper = {
-    name : "Stormtrooper",
-    hp: 100,
-    attack: 4,
+    name: "Stormtrooper",
+    hp: 132,
+    attack: 6,
     counterAttack: 7,
     image: "assets/images/Stormtrooper.jpg"
 }
 
 var maceWindu = {
-    name : "Mace Windu",
-    hp: 150,
-    attack: 6,
-    counterAttack: 8,
+    name: "Mace Windu",
+    hp: 138,
+    attack: 5,
+    counterAttack: 9,
     image: "assets/images/Macewindu.jpg"
 }
 
 var hanSolo = {
-    name :"Han Solo",
-    hp: 100,
+    name: "Han Solo",
+    hp: 130,
     attack: 5,
     counterAttack: 7,
     image: "assets/images/Hansolo.jpg"
@@ -42,7 +42,7 @@ var hanSolo = {
 
 var grievous = {
     name: "General Grievous",
-    hp: 200,
+    hp: 150,
     attack: 5,
     counterAttack: 8,
     image: "assets/images/Grievous.jpg"
@@ -137,12 +137,12 @@ $(".characters").click(function () {
         battleAttack = userChar.attack;
 
         //Adds the stats into the stat box
-        statBox.html("<p>Your character: "+userChar.name+"</p>"+
+        statBox.html("<p>Your character: " + userChar.name + "</p>" +
             "<p> HP: " + userChar.hp + "</p>" +
             "<p> Attack: " + userChar.attack + "</p>");
 
-        //removes the "Pick characters" heading in the html    
-        $("#pickChar").remove();
+        $("#pickChar").text("Select the Defender");
+
 
     }
     //This part is for picking your opponent.
@@ -188,9 +188,11 @@ $(".characters").click(function () {
             enemyChar = grievous;
         }
 
+        //removes the "Pick characters" heading in the html   
+        $("#pickChar").remove();
 
         //Adds the stats in the enemy stat box
-        statBox2.html("<p>Defender: "+enemyChar.name+"</p>"+
+        statBox2.html("<p>Defender: " + enemyChar.name + "</p>" +
             "<p> HP: " + enemyChar.hp + "</p>" +
             "<p> Attack: " + enemyChar.counterAttack + "</p>");
 
@@ -201,6 +203,9 @@ $(".characters").click(function () {
         $("#game").addClass("hide");
     }
 
+
+
+
 });
 
 
@@ -209,7 +214,7 @@ $("#attack").click(function () {
 
     //First set a conditional to insure that one character for each side has been selected
     if (isCharPicked && isOpponentPicked) {
-          
+
 
         //Damage calculations
         userChar.hp = userChar.hp - enemyChar.counterAttack;
@@ -226,11 +231,11 @@ $("#attack").click(function () {
         messageLog.html("<p>You dealt " + battleAttack + " to your opponent</p>" +
             "<p>Your opponent dealt " + enemyChar.counterAttack + " to you</p>");
 
-        statBox.html("<p>Your character: "+userChar.name+"</p>"+
+        statBox.html("<p>Your character: " + userChar.name + "</p>" +
             "<p> HP: " + userChar.hp + "</p>" +
             "<p> Attack: " + battleAttack + "</p>");
 
-        statBox2.html("<p>Defender: "+enemyChar.name+"</p>"+
+        statBox2.html("<p>Defender: " + enemyChar.name + "</p>" +
             "<p> HP: " + enemyChar.hp + "</p>" +
             "<p> Attack: " + enemyChar.counterAttack + "</p>");
 
@@ -239,40 +244,59 @@ $("#attack").click(function () {
         //updates user attack by their base attack each click
         battleAttack = battleAttack + userChar.attack;
 
-        //When enemy dies, condtion is met
-        if (enemyChar.hp <= 0) {
+    }
 
-            //reveals the rest of the characters 
-            $("#game").removeClass("hide");
 
-            //"Hides" the message log temporaily while selecting characters again
-            messageLog.removeClass("battleLog");
-            messageLog.empty();
 
-            //sets boolean to false so enemy can be picked again
-            isOpponentPicked = false;
+    //When enemy dies, condtion is met
+    if (enemyChar.hp <= 0) {
 
-            //removes the defeated enemy image and stat box
-            downChar.remove();
-            $(".enemyStat").remove();
+        //reveals the rest of the characters 
+        $("#game").removeClass("hide");
 
-            //clears out the enemyChar variable. Not sure if this is nessesary. Added as a precaution
-            enemyChar;
+        //"Hides" the message log temporaily while selecting characters again
+        messageLog.removeClass("battleLog");
+        messageLog.empty();
 
-            //adds to win counter by 1
-            wins++;
+        //sets boolean to false so enemy can be picked again
+        isOpponentPicked = false;
 
+        //removes the defeated enemy image and stat box
+        downChar.remove();
+        $(".enemyStat").remove();
+
+        //clears out the enemyChar variable. Not sure if this is nessesary. Added as a precaution
+        enemyChar;
+
+        //adds to win counter by 1
+        wins++;
+
+    }
+
+    //Lose condition
+    if (userChar.hp <= 0) {
+
+        //confirm message popup asking for retry. If true, page will reload and restart the game.
+        var retry = confirm("Try again?");
+        if (retry) {
+            location.reload();
         }
 
-        //Lose condition
-        if (userChar.hp <= 0) {
+        else {
+            //makes sure that no more battles can take place after loss
+            isOpponentPicked = false;
 
             //adds back the message box and puts in "You Lose"
             messageLog.attr("class", "battleLog");
-            messageLog.html("<p class='winMessage'>You lose</p>");
-        }
+            messageLog.html("<p class='winMessage'>You lose. Click this box to restart.</p>");
 
+            //Added a restart function on click to the message box just because
+            $(messageLog).click(function(){
+                location.reload();
+            });
+        }
     }
+
 
     //win condition. **Adjust the win condition number based on number of characters available
     if (wins === 4) {
@@ -283,6 +307,7 @@ $("#attack").click(function () {
     }
 
 });
+
 
 
 

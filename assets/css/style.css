@@ -33,6 +33,7 @@ img {
 
 .battleLog { 
     margin: 5px;
+    margin-top: 10px;
     border: solid 5px grey;
     background-color: lightcyan;
     text-align: center;
