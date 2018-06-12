@@ -307,3 +307,5 @@ $("#attack").click(function () {
 });
 
 ///Need to work on scenario when both characters die at the same time.
+//Will change background image and get better character images. Maybe change the border a little.
+//Maybe add an actual health bar
