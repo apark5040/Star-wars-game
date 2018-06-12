@@ -2,9 +2,9 @@
 //WILL MAKE ADJUSTMENTS TO BALANCE OUT CHARACTERS LATER
 var luke = {
     name: "Luke Skywalker",
-    hp: 140,
+    hp: 142,
     attack: 5,
-    counterAttack: 9,
+    counterAttack: 8,
     image: "assets/images/Luke.jpg"
 };
 
@@ -18,8 +18,8 @@ var darthVader = {
 
 var stormTrooper = {
     name: "Stormtrooper",
-    hp: 132,
-    attack: 6,
+    hp: 138,
+    attack: 5,
     counterAttack: 7,
     image: "assets/images/Stormtrooper.jpg"
 }
@@ -42,8 +42,8 @@ var hanSolo = {
 
 var grievous = {
     name: "General Grievous",
-    hp: 150,
-    attack: 5,
+    hp: 140,
+    attack: 6,
     counterAttack: 8,
     image: "assets/images/Grievous.jpg"
 }
@@ -275,40 +275,35 @@ $("#attack").click(function () {
 
     //Lose condition
     if (userChar.hp <= 0) {
+        //makes sure that no more battles can take place after loss
+        isOpponentPicked = false;
 
-        //confirm message popup asking for retry. If true, page will reload and restart the game.
-        var retry = confirm("Try again?");
-        if (retry) {
+        //adds back the message box and puts in "You Lose"
+        messageLog.html("<p class='winMessage battleLog'>You lose. Click this box to restart.</p>");
+
+        //Added a restart click function to the message box just because
+        $(messageLog).click(function () {
             location.reload();
-        }
+        });
 
-        else {
-            //makes sure that no more battles can take place after loss
-            isOpponentPicked = false;
-
-            //adds back the message box and puts in "You Lose"
-            messageLog.attr("class", "battleLog");
-            messageLog.html("<p class='winMessage'>You lose. Click this box to restart.</p>");
-
-            //Added a restart function on click to the message box just because
-            $(messageLog).click(function(){
-                location.reload();
-            });
-        }
     }
+
 
 
     //win condition. **Adjust the win condition number based on number of characters available
     if (wins === 4) {
 
         //adds back the message box and puts in "You win!"
-        messageLog.attr("class", "battleLog");
-        messageLog.html("<p class='winMessage'>You win!</p>");
+        messageLog.html("<p class='winMessage battleLog'>You win! Click this box to restart.</p>");
+
+
+        //Added a restart click function to the message box just because
+        $(messageLog).click(function () {
+            location.reload();
+        });
+
     }
 
 });
 
-
-
-
-
+///Need to work on scenario when both characters die at the same time.
