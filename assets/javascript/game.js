@@ -80,6 +80,15 @@ function picAdd(name) {
     $("#game").append(pic);
 }
 
+//Creates health bar. NEED TO FIGURE OUT HOW TO IMPLEMENT
+function hpBar(currentHp) {
+    var hp = $("<div class='progress'>");
+    var bar = $("<div class='progress-bar progress-bar-striped' role='progressbar' style='width: 10%' aria-valuenow="+currentHp+" aria-valuemin='0' aria-valuemax='100'>");
+    statBox.append(hp);
+    hp.append(bar);
+}
+
+
 
 //using function for each charcter. If adding or omitting, be sure to adjust win condition at the bottom of code
 picAdd(luke.image);
@@ -112,6 +121,8 @@ $(".characters").click(function () {
         statBox.addClass("col-md-4 playerStat");
         $("#upper").append(statBox);
 
+        
+
 
         //sets userChar to one of the character variables based on image source.
         if ($(this).attr("src") === luke.image) {
@@ -135,6 +146,7 @@ $(".characters").click(function () {
 
         //set battleAttack equal to the base attack
         battleAttack = userChar.attack;
+
 
         //Adds the stats into the stat box
         statBox.html("<p>Your character: " + userChar.name + "</p>" +
@@ -202,8 +214,6 @@ $(".characters").click(function () {
     if (isCharPicked && isOpponentPicked) {
         $("#game").addClass("hide");
     }
-
-
 
 
 });
